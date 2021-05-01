@@ -37,7 +37,9 @@ def main_entry_point(path):
 
     status = request.args.get('status', default='200')
 
-    return flask.Response(status=status, content_type='application/json', response=jsonpickle.encode(request))
+    data = jsonpickle.encode(request.data) if request.args.get('response', default=False) else None
+
+    return flask.Response(status=status, content_type='application/json', response=data)
 
 
 if __name__ == '__main__':
