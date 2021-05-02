@@ -6,7 +6,7 @@ import jsonpickle
 from flask import Flask
 from flask import request
 
-_API_VERSION = 'gamma'
+_API_VERSION = 'delta'
 
 app = Flask(__name__)
 
