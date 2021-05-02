@@ -1,9 +1,12 @@
 import json
+from wsgiref.headers import Headers
 
 import flask
 import jsonpickle
 from flask import Flask
 from flask import request
+
+_API_VERSION = 'alfa'
 
 app = Flask(__name__)
 
@@ -12,7 +15,7 @@ app = Flask(__name__)
 def main_entry_point(path):
     print(flush=True)
     print('#' * 80)
-    print('#' * 80 + "\r## Init Petition ")
+    print('#' * 80 + "\r## Init Petition " + _API_VERSION)
     print('#' * 80)
     print()
 
@@ -39,7 +42,11 @@ def main_entry_point(path):
 
     data = jsonpickle.encode(request.data) if request.args.get('response', default=False) else None
 
-    return flask.Response(status=status, content_type='application/json', response=data)
+    headers = Headers()
+
+    headers.add_header('X-APi-Version', _API_VERSION)
+
+    return flask.Response(status=status, content_type='application/json', response=data, headers=headers)
 
 
 if __name__ == '__main__':
