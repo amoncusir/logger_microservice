@@ -38,11 +38,9 @@ def main_entry_point(path):
     print('#' * 80)
     print(flush=True)
 
-    status = request.args.get('status', default='200')
+    print('Raise planned error. This service version fails in the request intentionally')
 
-    data = jsonpickle.encode(request.data) if request.args.get('response', default=False) else None
-
-    return flask.Response(status=status, content_type='application/json', response=data)
+    raise Exception()
 
 
 if __name__ == '__main__':
